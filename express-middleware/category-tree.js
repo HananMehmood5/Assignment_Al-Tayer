@@ -1,5 +1,3 @@
-const cache = require('../lib/cache');
-
 /*
 // read from /data/categories.csv
 categories = [{
@@ -74,42 +72,35 @@ categoryTree = makeTree({
 */
 
 module.exports = async (req, res) => {
-  const categoryTree = await cache.getOrFallback({
-    key: 'category_tree_en_ae',
-    fallback: async () => {
-      // PLEASE IMPLEMENT ME
-      const sampleOutput = {
-        id: 1,
-        name: 'root',
+  // PLEASE IMPLEMENT ME
+  const categoryTree = {
+    id: 1,
+    name: 'root',
+    children: [
+      {
+        id: 2,
+        name: 'dummy_category_1',
         children: [
           {
-            id: 2,
-            name: 'dummy_category_1',
-            children: [
-              {
-                id: 4,
-                name: 'dummy_category_3',
-                children: [],
-              },
-            ],
-          },
-          {
-            id: 3,
-            name: 'dummy_category_2',
-            children: [
-              {
-                id: 5,
-                name: 'dummy_category_4',
-                children: [],
-              },
-            ],
+            id: 4,
+            name: 'dummy_category_3',
+            children: [],
           },
         ],
-      };
-
-      return sampleOutput;
-    },
-  });
+      },
+      {
+        id: 3,
+        name: 'dummy_category_2',
+        children: [
+          {
+            id: 5,
+            name: 'dummy_category_4',
+            children: [],
+          },
+        ],
+      },
+    ],
+  };
 
   res.json(categoryTree);
 };
