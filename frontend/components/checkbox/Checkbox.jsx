@@ -3,8 +3,8 @@ import React from 'react';
 import './Checkbox.less';
 
 // -- icons --
-import LineIcon from '../LineIcon';
-import TickIcon from '../TickIcon';
+import LineIcon from '../icons/LineIcon';
+import TickIcon from '../icons/TickIcon';
 
 export default ({
   indeterminate,
@@ -20,6 +20,7 @@ export default ({
     <input
       type="checkbox"
       checked={checked}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     />
 

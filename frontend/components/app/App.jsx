@@ -11,7 +11,9 @@ export default hot(() => {
   useEffect(() => {
     axios
       .get('/category-tree')
-      .then(({ data }) => setCategoryTree({ ...data, parent: null }));
+      .then(({ data }) => {
+        setCategoryTree({ ...data, parent: null });
+      });
   }, []);
   const [expanded, setExpanded] = useState({});
   const [selected, setSelected] = useState({});
@@ -26,24 +28,23 @@ export default hot(() => {
         <QuickSearch />
       </div>
 
-      {categoryTree && (
-        <div className="App-componentContainer">
-          <div className="App-componentHeader">
-            <div className="App-componentTitleText">CHECKBOX TREE</div>
+      <div className="App-componentContainer">
+        <div className="App-componentHeader">
+          <div className="App-componentTitleText">CHECKBOX TREE</div>
 
-            <button
-              className="Button"
-              type="button"
-              onClick={() => {
-                // PLEASE IMPROVE ME
-                axios
-                  .get('/flush-category-tree-cache');
-              }}
-            >
-              REFRESH
-            </button>
-          </div>
-
+          <button
+            className="Button"
+            type="button"
+            onClick={() => {
+              // PLEASE IMPROVE ME
+              axios
+                .get('/flush-category-tree-cache');
+            }}
+          >
+            REFRESH
+          </button>
+        </div>
+        {categoryTree && (
           <CheckboxTree
             node={categoryTree}
             selected={selected}
@@ -51,8 +52,9 @@ export default hot(() => {
             expanded={expanded}
             setExpanded={setExpanded}
           />
-        </div>
-      )}
+        )}
+      </div>
+
     </div>
   );
 });
