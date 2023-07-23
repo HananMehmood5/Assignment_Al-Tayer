@@ -5,5 +5,7 @@ redis:
   port: 6379
   db: 1
   channelName: ounass
+  categoryCacheKey: category-tree
+  cacheMaxMinutes: 10
 
 productThumbnailBaseURL: https://ounass-prod.atgcdn.ae/small_light(p=thmb,ch=158,cc=fafafa,of=webp)/pub/media/catalog/product

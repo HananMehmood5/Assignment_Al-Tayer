@@ -13,10 +13,9 @@ router.get('/category-tree', require('./routers/category-tree'));
 
 router.get('/flush-category-tree-cache', require('./routers/flush-category-tree-cache'));
 
-router.use((req, res) => {
+router.use((req, res, next) => {
   // Use it for error boundary
-  console.log('xx hello');
-  res.status(200).send('200');
+  next();
 });
 
 module.exports = router;

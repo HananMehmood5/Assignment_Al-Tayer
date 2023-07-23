@@ -1,4 +1,6 @@
 const readCSVFile = require('../lib/read-csv-file');
+const cache = require('../lib/cache');
+const config = require('../config');
 
 const ROOT_CATEGORY_ID = 1;
 
@@ -47,11 +49,22 @@ const createTreeFromCSVFiles = async () => {
   };
 };
 
-module.exports = async (_, res, next) => {
+const categoryTreeCacheTTL = 1000 * 60 * config.redis.cacheMaxMinutes;
+
+const categoryTreeRouteHandler = async (_, res) => {
   try {
-    const tree = await createTreeFromCSVFiles();
-    res.json(tree);
+    // Fetch category tree from cache or fallback to CSV files
+    const tree = await cache.getOrFallback({
+      key: config.redis.categoryCacheKey, // Specify a unique key for the cached value
+      fallback: createTreeFromCSVFiles,
+      ttl: categoryTreeCacheTTL,
+    });
+
+    res.status(200).json(tree);
   } catch (e) {
-    next(e);
+    console.error('Error occurred:', e);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+module.exports = categoryTreeRouteHandler;
