@@ -15,15 +15,8 @@ const useQuickSearch = () => {
 
       axios
         .get(`/quick-search?searchString=${searchString}`)
-        .then((response) => {
-          if (!response.status.toString().startsWith('2')) {
-            throw new Error('Network response was not ok');
-          }
-          return response.data;
-        })
-        .then((data) => {
-          setResults(data.products);
-        })
+        .then((response) => setResults(response.data.products))
+
         .catch((e) => {
           if (e.response) {
             setError('Something wrong with the Server');
