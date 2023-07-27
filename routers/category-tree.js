@@ -5,13 +5,13 @@ const config = require('../config');
 const ROOT_CATEGORY_ID = 1;
 
 const buildCategoryTree = (categories, categoryParentChildMapping, parentId) => {
-  const children = categoryParentChildMapping.reduce((acc, item) => (
+  const parentCategoryChildren = categoryParentChildMapping.reduce((acc, item) => (
     parseInt(item.parentId, 10) === parseInt(parentId, 10)
       ? [...acc, item.categoryId]
       : acc
   ), []);
 
-  return children.reduce((tree, categoryId) => {
+  return parentCategoryChildren.reduce((tree, categoryId) => {
     const category = categories[categoryId];
 
     if (category) {
@@ -63,7 +63,7 @@ const categoryTreeRouteHandler = async (_, res) => {
     res.status(200).json(tree);
   } catch (e) {
     console.error('Error occurred:', e);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Something bad happened on server' });
   }
 };
 
