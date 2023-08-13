@@ -4,7 +4,6 @@ export default ({
   color,
   width,
   height,
-  circle,
 }) => (
   <svg
     width={width || 30}

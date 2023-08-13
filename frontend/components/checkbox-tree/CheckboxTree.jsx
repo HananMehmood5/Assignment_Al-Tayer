@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React from 'react';
 
-import CaretIcon from '../CaretIcon';
+import CaretIcon from '../icons/CaretIcon';
 import Checkbox from '../checkbox/Checkbox';
 import FormControlLabel from '../form-control-label/FormControlLabel';
 import './CheckboxTree.less';
@@ -36,6 +36,7 @@ const CheckboxTree = (props) => {
       {node.children.map((child) => (
         <CheckboxTree
           key={child.id}
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...props}
           node={child}
         />

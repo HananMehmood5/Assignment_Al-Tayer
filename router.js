@@ -5,18 +5,17 @@ const router = express.Router();
 
 router.use('/static', express.static(`${__dirname}/frontend/static/`));
 
-router.get('/', require('./express-middleware/home'));
+router.get('/', require('./routers/home'));
 
-router.get('/quick-search', require('./express-middleware/quick-search'));
+router.get('/quick-search', require('./routers/quick-search'));
 
-router.get('/category-tree', require('./express-middleware/category-tree'));
+router.get('/category-tree', require('./routers/category-tree'));
 
-router.get('/flush-category-tree-cache', require('./express-middleware/flush-category-tree-cache'));
+router.get('/flush-category-tree-cache', require('./routers/flush-category-tree-cache'));
 
-router.use((err, req, res, next) => {
-  console.error(err);
-
-  res.status(500).send('500');
+router.use((req, res, next) => {
+  // Use it for error boundary
+  next();
 });
 
 module.exports = router;
